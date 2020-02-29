@@ -1,5 +1,5 @@
 # Time-Manager
-**Python3** Calendar Program
+**Python3** Calendar Program | Current language support only consists of **german**
 
 
 1. Clone Repository
