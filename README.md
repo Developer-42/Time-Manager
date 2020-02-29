@@ -1,5 +1,6 @@
 # Time-Manager
-Python Calendar Program for Python 3
+**Python3** Calendar Program
+
 
 1. Clone Repository
 
