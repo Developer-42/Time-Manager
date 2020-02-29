@@ -15,7 +15,7 @@ import pprint
 days_de   = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
 months_de = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
 
-days = days_de
+days   = days_de
 months = months_de
 
 
@@ -33,7 +33,8 @@ class Data:
                 tmp_dict = dict(ast.literal_eval(file_str))
         else:
             tmp_dict = {}
-            with open("save.txt", "w"):
+            with open("save.txt", "w") as file:
+                pprint.pprint(tmp_dict, file)
                 print("save.txt created")
 
     def save_days(self, dict_):
