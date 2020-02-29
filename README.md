@@ -1,4 +1,4 @@
-# Time-Manager
+# Time Manager
 **Python3** Calendar Program | Current language support only consists of **german**
 
 
