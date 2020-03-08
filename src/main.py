@@ -1,15 +1,15 @@
 from functools import partial
-from PySide2.QtWidgets import *
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from datetime import datetime, timedelta, date
+from PySide2.QtCore import Qt, QSize
+from PySide2.QtWidgets import (QWidget, QApplication, QPushButton, QVBoxLayout, QHBoxLayout,
+                               QLabel, QToolButton, QFrame, QTextEdit, QGridLayout, QMessageBox)
+from PySide2.QtGui import QFont, QIcon
+from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
+from pprint import pprint
 import calendar
 import sys
 import os
-import ntpath
 import ast
-import pprint
 
 
 days_de   = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
@@ -34,13 +34,13 @@ class Data:
         else:
             tmp_dict = {}
             with open("save.txt", "w") as file:
-                pprint.pprint(tmp_dict, file)
+                pprint(tmp_dict, file)
                 print("save.txt created")
 
     def save_days(self, dict_):
         global tmp_dict
         with open("save.txt", "w") as file:
-            pprint.pprint(dict_, file)
+            pprint(dict_, file)
 
     def return_day_info(self):
         return [self.today, self.weekday]
@@ -64,7 +64,7 @@ class Data:
         return [calendar_days_list, (previous_month.year, previous_month.month), (next_month.year, next_month.month)]
 
 
-class Cal_Button(QPushButton):
+class CalButton(QPushButton):
     def __init__(self, text, option, notes_av):
         QPushButton.__init__(self)
         self.setText(text)
@@ -170,27 +170,27 @@ class MainWidget(QWidget):
         calendar_buttons = [[],[],[]]
         for x in calendar_days[0]:
             if calendar_previous_month + (x, ) in tmp_dict:
-                calendar_buttons[0].append(Cal_Button(str(x), 1, True))
+                calendar_buttons[0].append(CalButton(str(x), 1, True))
             else:
-                calendar_buttons[0].append(Cal_Button(str(x), 1, False))
+                calendar_buttons[0].append(CalButton(str(x), 1, False))
             button_index = calendar_buttons[0].index(calendar_buttons[0][-1])
             calendar_buttons[0][button_index].clicked.connect(partial(self.previous_month, x))
 
         for x in calendar_days[1]:
             if x == day:
-                calendar_buttons[1].append(Cal_Button(str(x), 2, 2))
+                calendar_buttons[1].append(CalButton(str(x), 2, 2))
             elif (year, month, x) in tmp_dict:
-                calendar_buttons[1].append(Cal_Button(str(x), 2, 1))
+                calendar_buttons[1].append(CalButton(str(x), 2, 1))
             else:
-                calendar_buttons[1].append(Cal_Button(str(x), 2, 0))
+                calendar_buttons[1].append(CalButton(str(x), 2, 0))
             button_index = calendar_buttons[1].index(calendar_buttons[1][-1])
             calendar_buttons[1][button_index].clicked.connect(partial(self.change_selected_day, x))
 
         for x in calendar_days[2]:
             if calendar_next_month + (x, ) in tmp_dict:
-                calendar_buttons[2].append(Cal_Button(str(x), 1, True))
+                calendar_buttons[2].append(CalButton(str(x), 1, True))
             else:
-                calendar_buttons[2].append(Cal_Button(str(x), 1, False))
+                calendar_buttons[2].append(CalButton(str(x), 1, False))
             button_index = calendar_buttons[2].index(calendar_buttons[2][-1])
             calendar_buttons[2][button_index].clicked.connect(partial(self.next_month, x))
 
